@@ -12,7 +12,6 @@ public class giveRole extends ListenerAdapter{
 	public void onMessageReceived(MessageReceivedEvent e){
 		Message msg = e.getMessage();
 		User user = e.getAuthor();
-		//User getUser = e.getGuild();
 		
 		if(!msg.getRawContent().startsWith(".r") || bannedList.black.contains(e.getAuthor().getIdLong()) || e.getAuthor().isBot()) {
 			return;
@@ -23,11 +22,11 @@ public class giveRole extends ListenerAdapter{
 		String role = e.getMessage().getRawContent().split("\\s+", 2)[1];
 		
 		switch(role){
-			case "beginner" :  e.getGuild().getController().addRolesToMember(user, beginnerID); //.getRoleById(316125948544155649L).;
+			case "beginner" :  e.getGuild().getController().addRolesToMember(e.getMember(), beginnerID).queue(); //.getRoleById(316125948544155649L).;
 			case "medium" : 
 			case "profi" : 
 				
-			default : e.getChannel().sendMessage("Die angegebene Gruppe ist nicht vorhanden. \n Bitte w‰hle zwischen beginner , medium oder profi").queue();
+			default : e.getChannel().sendMessage("Die angegebene Gruppe ist nicht vorhanden. \n Bitte w√§hle zwischen beginner , medium oder profi").queue();
 		}
 	}
 }
